@@ -34,4 +34,3 @@ for _ in range(runs):
         wins += 1 
 
 print(return_string.format((wins/runs)*100, ((runs-wins)/runs)*100))
-# 	return [k in string.letters for k in c.Counter(s)].count(True)==26
