@@ -1,3 +1,10 @@
+/*
+Find words in a word list that contain all the vowels in alphabetical order, 
+non-repeated, where vowels are defined as A E I O U Y.
+
+http://www.reddit.com/r/dailyprogrammer/comments/1aih0v/031813_challenge_122_easy_words_with_ordered/
+*/
+
 static void Main(string[] args)
 {
     var vowels = new List<char>() { 'a', 'e', 'i', 'o', 'u', 'y' };
