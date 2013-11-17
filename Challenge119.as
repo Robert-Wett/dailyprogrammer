@@ -1,14 +1,15 @@
 // http://www.reddit.com/r/dailyprogrammer/comments/17f3y2/012813_challenge_119_easy_change_calculator/
 /*
-Write A function that takes an amount of money, rounds it to the nearest penny and 
-then tells you the minimum number of coins needed to equal that amount of money. 
-
-For Example: "4.17" would print out:
-	Quarters: 16
-	Dimes: 1
-	Nickels: 1
-	Pennies: 2
-	Author: nanermaner
+	Write A function that takes an amount of money, rounds it to the nearest penny and 
+	then tells you the minimum number of coins needed to equal that amount of money. 
+	
+	For Example: "4.17" would print out:
+		Quarters: 16
+		Dimes: 1
+		Nickels: 1
+		Pennies: 2
+		
+	Problem Author: nanermaner
 */
 
 public class RedditChallenge {
