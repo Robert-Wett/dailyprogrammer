@@ -1,5 +1,5 @@
 # Daily Programmer Solutions
-I'm throwing up all my daily programmer solutions here
+These are any of the challenges I've finished/attempted
 
 Most of them are finished, but there are some unfinished 'drafts' thrown up. These have been authored over the last 2 years as I've been programming, so some are more polished than others :)
 
