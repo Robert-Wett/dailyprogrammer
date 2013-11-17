@@ -11,6 +11,7 @@ If one were to press every one of the character-generating keys in order from to
 to bottom left-to-right, you would get the following string:
 `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./
 plus the whitespace characters TAB,RETURN,SPACE.
+
 Your job is to write a function that takes in a character representing a keypress, 
 as well as a boolean for each 'modifier' key like ctrl,alt,shift,and caps lock, 
 and converts it properly into the ascii character for which the key gets output.
@@ -21,9 +22,11 @@ correct string. A status key change is indicated by a ^ character..if a ^ charac
 is detected, then the next character is either an 's' or 'S' for shift pressed or 
 shift released, respectively, a 'c' or 'C' for caps on or caps off respectively, 
 and a 't' 'T' for control down or up, and 'a' 'A' for alt down or up.
-For example on the bonus, given the input
+
+For example on the bonus, given the input:
 ^sm^Sy e-mail address ^s9^Sto send the ^s444^S to^s0^S is ^cfake^s2^Sgmail.com^C
-you should output
+
+you should output:
 My e-mail address (to send the $$$ to) is FAKE@GMAIL.COM
 */
 
