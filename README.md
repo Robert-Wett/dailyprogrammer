@@ -1,9 +1,7 @@
 # Daily Programmer Solutions
 I'm throwing up all my daily programmer solutions here
 
-Some of them are finished, and some of them are just rough drafts. Some of them are ugly, some of them aren't.
-
-The earlier one's are kind of ugly
+Most of them are finished, but there are some unfinished 'drafts' thrown up. These have been authored over the last 2 years as I've been programming, so some are more polished than others :)
 
 Currently, there are solutions in 5 languages:
  * C#
@@ -11,3 +9,5 @@ Currently, there are solutions in 5 languages:
  * Ruby
  * Python
  * ActionScript 3
+
+Note: These solutions often try to be somewhat clever at the expense of readability, in the vein of Daily Programmer.
