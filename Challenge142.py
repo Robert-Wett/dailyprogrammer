@@ -37,7 +37,7 @@
 
 f = open("files/fallingsand.txt")
 # Use a list comprehension to read in a transposed array
-# (We use python unpacking behavior to transpose)
+# (We use python unpacking behavior (  zip(*args))  ) to transpose)
 raw_data = [list(x) for x in zip(*[list(x) for x in f.readlines()][1:])]
 for row in raw_data:
     # The grain will fall at least one position. If not, the
