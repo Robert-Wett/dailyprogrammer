@@ -1,3 +1,4 @@
+# http://www.reddit.com/r/dailyprogrammer/comments/1m1jam/081313_challenge_137_easy_string_transposition/
 
 # It can be helpful sometimes to rotate a string 90-degrees, like a big vertical 
 # "SALES" poster or your business name on vertical neon lights, like this image 
