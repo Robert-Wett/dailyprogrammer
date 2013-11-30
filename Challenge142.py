@@ -63,6 +63,7 @@ for row in raw_data:
         row[-1] = '.'
 
 # Cheap way of printing it out, I got lazy :)
+# Note: Notice the transpose method list(zip(*raw_data))  
 for row in [''.join(list(x)) for x in list(zip(*raw_data))]:
     print(row)
 
