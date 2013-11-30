@@ -36,17 +36,33 @@
 #  . ..
 
 f = open("files/fallingsand.txt")
+# Use a list comprehension to read in a transposed array
+# (We use python unpacking behavior to transpose)
 raw_data = [list(x) for x in zip(*[list(x) for x in f.readlines()][1:])]
 for row in raw_data:
+    # The grain will fall at least one position. If not, the
+    # below function will redraw it.
     row[0] = ' '
+    # For columns with '#', they have a 'ground'. Set this to False
+    # first, and assume False until True
     has_ground = False 
     for idx, char in enumerate(row):
+        # If we have already established a ground, there's no need to
+        # draw anything further - it's already sitting on the ground.
         if char in ('#', '.') and has_ground == False:
+            # Since the array of values is transposed, we can access
+            # the column value by common index. Set the index before
+            # the '#' or '.' value to the grain of sand, and set the
+            # has_ground variable to true, because we found a ground.
             row[idx - 1] = '.'
             has_ground = True
+    # If we looped through and didn't find a ground character, then we
+    # assume we need to draw the grain of sand at the bottom, because
+    # there was no ground to stop it.
     if has_ground == False:
         row[-1] = '.'
 
+# Cheap way of printing it out, I got lazy :)
 for row in [''.join(list(x)) for x in list(zip(*raw_data))]:
     print(row)
 
