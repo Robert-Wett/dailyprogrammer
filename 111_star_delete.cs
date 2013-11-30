@@ -15,9 +15,9 @@
 
 public static string starDelete(string str)
 {
-    List<char> chars = str.ToList();
-    List<int> delIndex = new List<int>();
-    StringBuilder builder = new StringBuilder();
+    var chars    = str.ToList();
+    var delIndex = new List<int>();
+    var builder  = new StringBuilder();
 
     for (int i = 0; i < chars.Count; i++)
     {
