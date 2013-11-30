@@ -25,11 +25,16 @@
 # Tactic 2: 66.6% winning chance
 
 from random import sample
-
+# we assign "wins" to a float for future math applications
 runs, wins = 10000, 0.0
 return_string =  "Tactic 1: {0}% winning chance\nTactic 2: {1}% winning chance"
 
 for _ in range(runs):
+    # For each time for the runs count, simulate this
+    # round choosing. Taking a sample of 2 numbers out of a total
+    # three, and picking the second chance `[1]` which would be the
+    # strategy. I consider anything else as the other strategy. (This one might
+    # not be 100%)
     if [False, False, True][sample(range(3), 2)[1]]:
         wins += 1 
 
