@@ -14,13 +14,15 @@
 */
 
 var panagrammer = function(sentence) {
+    // Initialize the return Object
     var ret = {};
     _.map(sentence.toLowerCase().replace(/[^a-z]/g,'').split(''), function(c) {
-        if (ret[c]) ret[c]++;
-            else ret[c] = 1;
+        if (ret[c]) ret[c]++; // Increment if it exists
+            else ret[c] = 1; // Set to one, if not initialized
     });
     return {
-        true: _.size(ret) === 26,
+        true: _.size(ret) === 26, // if the size of the unique characters
+                                  // in the ret hashmap is 26 (what it sho0uld be
         toString: _.map(ret, function(v, k){return k+':'+v+' ';})
     };
 };
