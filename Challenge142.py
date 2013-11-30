@@ -43,7 +43,7 @@ for row in raw_data:
     # The grain will fall at least one position. If not, the
     # below function will redraw it.
     row[0] = ' '
-    # For columns with '#', they have a 'ground'. Set this to False
+    # For columns with '#', and '.', they have a 'ground'. Set this to False
     # first, and assume False until True
     has_ground = False 
     for idx, char in enumerate(row):
