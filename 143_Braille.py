@@ -41,7 +41,7 @@ braille_data = ["O.....", "O.O...", "OO....", "OO.O..", "O..O..",
                 "O...OO", "O.O.OO", ".OOO.O", "OO..OO", "OO.OOO",
                 "O..OOO"]
 
-letter_lookup = {k:v for (k, v) in zip(braille_data, list("abcdefghijklmnopqrstuvwxyz"))}
+letter_lookup = {k:v for (k, v) in zip(braille_data, "abcdefghijklmnopqrstuvwxyz")}
 
 raw_data = [x.strip().split(" ") for x in f.readlines()]
 togethered = "".join([letter_lookup["".join(x)] for x in list(zip(*raw_data))])
