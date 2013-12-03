@@ -1,3 +1,5 @@
+# http://www.reddit.com/r/dailyprogrammer/comments/1s061q/120313_challenge_143_easy_braille
+
 # Braille is a writing system based on a series of raised / lowered 
 # bumps on a material, for the purpose of being read through touch 
 # rather than sight. It's an incredibly powerful reading & writing 
