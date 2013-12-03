@@ -33,16 +33,16 @@
 # helloworld
 
 f = open("files/braille.txt")
+raw_data = [x.strip().split(" ") for x in f.readlines()]
 
-braille_data = ["O.....", "O.O...", "OO....", "OO.O..", "O..O..", 
-                "OOO...", "OOOO..", "O.OO..", ".OO...", ".OOO..",
-                "O...O.", "O.O.O.", "OO..O.", "OO.OO.", "O..OO.",
-                "OOO.O.", "OOOOO.", "O.OOO.", ".OO.O.", ".OOOO.",
-                "O...OO", "O.O.OO", ".OOO.O", "OO..OO", "OO.OOO",
-                "O..OOO"]
+braille_data = \
+["O.....", "O.O...", "OO....", "OO.O..", "O..O..", 
+"OOO...", "OOOO..", "O.OO..", ".OO...", ".OOO..",
+"O...O.", "O.O.O.", "OO..O.", "OO.OO.", "O..OO.",
+"OOO.O.", "OOOOO.", "O.OOO.", ".OO.O.", ".OOOO.",
+"O...OO", "O.O.OO", ".OOO.O", "OO..OO", "OO.OOO",
+"O..OOO"]
 
 letter_lookup = {k:v for (k, v) in zip(braille_data, "abcdefghijklmnopqrstuvwxyz")}
-
-raw_data = [x.strip().split(" ") for x in f.readlines()]
 togethered = "".join([letter_lookup["".join(x)] for x in list(zip(*raw_data))])
 print(togethered)
