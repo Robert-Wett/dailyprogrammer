@@ -69,8 +69,9 @@ for row in [''.join(list(x)) for x in list(zip(*raw_data))]:
 
 
 # This solution assumes 1 grain of sand is dropped from each column
-
-
+#
+# http://ideone.com/4tHRoN
+#
 # OUTPUTS
 # http://i.imgur.com/JU1mO3k.png
 # http://i.imgur.com/MSGYqlU.png
