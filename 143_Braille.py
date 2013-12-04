@@ -46,3 +46,5 @@ braille_data = \
 letter_lookup = {k:v for (k, v) in zip(braille_data, "abcdefghijklmnopqrstuvwxyz")}
 togethered = "".join([letter_lookup["".join(x)] for x in list(zip(*raw_data))])
 print(togethered)
+
+# http://ideone.com/XkMkD1
