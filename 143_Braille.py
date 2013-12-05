@@ -32,7 +32,6 @@
 # Sample Output:
 # helloworld
 
-import sys
 import re
 
 
