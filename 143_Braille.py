@@ -142,3 +142,5 @@ get_braille("braille", map=lookup_b, lname=binlabel)
 get_braille("j is nonsense", messin_args)
 get_braille("j is nonsense", map=lookup_p, lname=poundlabel, ljust=False)
 get_braille("j is nonsense", map=lookup_b, lname=binlabel)
+
+# http://ideone.com/gQdsB1
