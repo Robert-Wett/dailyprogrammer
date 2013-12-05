@@ -45,26 +45,54 @@ braille_data = \
 "O...O.", "O.O.O.", "OO..O.", "OO.OO.", "O..OO.",
 "OOO.O.", "OOOOO.", "O.OOO.", ".OO.O.", ".OOOO.",
 "O...OO", "O.O.OO", ".OOO.O", "OO..OO", "OO.OOO",
-"O..OOO", "      "]
+"O..OOO", "......"]
 
-letter_lookup = {k:v for (k, v) in zip(braille_data, "abcdefghijklmnopqrstuvwxyz")}
+braille_pound = \
+["#.....", "#.#...", "##....", "##.#..", "#..#..", 
+"###...", "####..", "#.##..", ".##...", ".###..",
+"#...#.", "#.#.#.", "##..#.", "##.##.", "#..##.",
+"###.#.", "#####.", "#.###.", ".##.#.", ".####.",
+"#...##", "#.#.##", ".###.#", "##..##", "##.###",
+"#..###", "......"]
+
+letter_lookup = {k:v for (k, v) in zip(braille_data, "abcdefghijklmnopqrstuvwxyz ")}
 togethered = "".join([letter_lookup["".join(x)] for x in list(zip(*raw_data))])
-print(togethered)
+print(togethered, end="\n\n")
 
 #--------------------------------------
 # Now we implement the reverse function
 #--------------------------------------
 
+# Add a couple other lists to build a dictionary/lookup with
+braille_pound = \
+["#.....", "#.#...", "##....", "##.#..", "#..#..", 
+"###...", "####..", "#.##..", ".##...", ".###..",
+"#...#.", "#.#.#.", "##..#.", "##.##.", "#..##.",
+"###.#.", "#####.", "#.###.", ".##.#.", ".####.",
+"#...##", "#.#.##", ".###.#", "##..##", "##.###",
+"#..###", "......"]
+
+braille_binary = \
+["100000", "101000", "110000", "110100", "100100", 
+"111000", "111100", "101100", "011000", "011100",
+"100010", "101010", "110010", "110110", "100110",
+"111010", "111110", "101110", "011010", "011110",
+"100011", "101011", "011101", "110011", "110111",
+"100111", "000000"]
+
 lookup = {k:v for (k, v) in zip("abcdefghijklmnopqrstuvwxyz ", braille_data)}
+lookup_p = {k:v for (k, v) in zip("abcdefghijklmnopqrstuvwxyz ", braille_pound)}
+lookup_b = {k:v for (k, v) in zip("abcdefghijklmnopqrstuvwxyz ", braille_binary)}
 
 def pad(string, length=2, delim=' '):
     """ Take a string and add a specified character every nth index """
     return delim.join(string[i:i+length] for i in range(0,len(string),length))
 
-def get_braille(sentence):
+def get_braille(sentence, lookup=lookup, delimchar=' '):
     """This takes a string and returns the English Braille
        representation in three lines of text. It supports
-       [aA-zZ] and spaces"""
+       [aA-zZ] and spaces. It assumes the lookups passed
+       or built already."""
     
     r1, r2, r3 = [], [], []
     for c in sentence.lower():
@@ -73,13 +101,20 @@ def get_braille(sentence):
        r2+=translated[1]
        r3+=translated[2]
     print("Brailling '", sentence, "':", sep='')
-    print("{0:3}".format(pad("".join(r1))), 
-          "{0:3}".format(pad("".join(r2))), 
-          "{0:3}".format(pad("".join(r3))), 
+    print("{0:3}".format(pad("".join(r1), delim=delimchar)), 
+          "{0:3}".format(pad("".join(r2), delim=delimchar)), 
+          "{0:3}".format(pad("".join(r3), delim=delimchar)), 
           sep="\n", end="\n\n")
 
 get_braille("Hello World")
+get_braille("Hello World", lookup_p)
+get_braille("Hello World", lookup_b)
 get_braille("Rob Wett")
+get_braille("Rob Wett", lookup_p)
+get_braille("Rob Wett", lookup_b, '+')
 get_braille("braille")
+get_braille("braille", lookup_p)
+get_braille("braille", lookup_b)
 get_braille("j is nonsense")
-
+get_braille("j is nonsense", lookup_p)
+get_braille("j is nonsense", lookup_b)
