@@ -92,7 +92,8 @@ def pad(string, length=2, delim=' '):
     """ Take a string and add a specified character every nth index """
     return delim+delim.join(string[i:i+length] for i in range(0,len(string),length))+delim
 
-def get_braille(sentence, *args, map=lookup, delimchar=' ', lname="'O' for raised and '.' for lowered", ljust=True):
+def get_braille(sentence, *args, map=lookup, 
+                delimchar=' ', lname="'O' for raised and '.' for lowered", ljust=True):
 #    """This takes a string and returns the English Braille
 #       representation in three lines of text. It supports
 #       [aA-zZ] and spaces. It assumes the lookups passed
@@ -110,9 +111,7 @@ def get_braille(sentence, *args, map=lookup, delimchar=' ', lname="'O' for raise
        r4+=translated[2]
     print("Translating '", sentence, "' to braille, with ", lname, sep='')
     if args:
-        details = ["".join(x) for x in args]
-        for line in details:
-            print(line)
+        for line in ["".join(x) for x in args]: print(line)
     print("{0:3}".format(pad("".join(r1), delim=delimchar)), 
           "{0:3}".format(pad("".join(r2), delim=delimchar)), 
           "{0:3}".format(pad("".join(r3), delim=delimchar)), 
@@ -142,5 +141,3 @@ get_braille("braille", map=lookup_b, lname=binlabel)
 get_braille("j is nonsense", messin_args)
 get_braille("j is nonsense", map=lookup_p, lname=poundlabel, ljust=False)
 get_braille("j is nonsense", map=lookup_b, lname=binlabel)
-
-# http://ideone.com/gQdsB1
