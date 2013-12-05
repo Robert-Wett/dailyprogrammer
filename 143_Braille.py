@@ -92,7 +92,7 @@ def pad(string, length=2, delim=' '):
     """ Take a string and add a specified character every nth index """
     return delim+delim.join(string[i:i+length] for i in range(0,len(string),length))+delim
 
-def get_braille(sentence, *args, map=lookup, 
+def get_braille(sentence, *args, bmap=lookup, 
                 delimchar=' ', lname="'O' for raised and '.' for lowered", ljust=True):
 #    """This takes a string and returns the English Braille
 #       representation in three lines of text. It supports
@@ -105,11 +105,11 @@ def get_braille(sentence, *args, map=lookup,
            r1+=c+" "
        else:
            r1+=" "+c
-       translated = re.findall('..', map[c])
+       translated = re.findall('..', bmap[c])
        r2+=translated[0]
        r3+=translated[1]
        r4+=translated[2]
-    print("Translating '", sentence, "' to braille, with ", lname, sep='')
+    print("Translating '", sentence.upper(), "' to braille, with ", lname, sep='')
     if args:
         for line in ["".join(x) for x in args]: print(line)
     print("{0:3}".format(pad("".join(r1), delim=delimchar)), 
@@ -120,24 +120,24 @@ def get_braille(sentence, *args, map=lookup,
 
 # Demonstrate the different usages
 get_braille("Hello World")
-get_braille("Hello World", map=lookup_p, lname=poundlabel)
-get_braille("Hello World", map=lookup_b, lname=binlabel)
+get_braille("Hello World", bmap=lookup_p, lname=poundlabel)
+get_braille("Hello World", bmap=lookup_b, lname=binlabel)
 get_braille("Rob Wett")
-get_braille("Rob Wett", map=lookup_p, lname=poundlabel)
+get_braille("Rob Wett", bmap=lookup_p, lname=poundlabel)
 get_braille("Rob Wett", "Using '|' as a delimiting character: ",
            "Lets add another line, just args stuff an all", 
-           map=lookup_p, lname=poundlabel, delimchar='|')
+           bmap=lookup_p, lname=poundlabel, delimchar='|')
 get_braille("Rob Wett", "Using '+' as a delimiting character: ", 
-            map=lookup_b, lname=binlabel, delimchar='+')
+            bmap=lookup_b, lname=binlabel, delimchar='+')
 get_braille("Rob Wett", "Using '-' as a delimiting character: ", 
-            map=lookup_b, lname=binlabel, delimchar='-')
+            bmap=lookup_b, lname=binlabel, delimchar='-')
 get_braille("Rob Wett", "Using '-' as a delimiting character: ", 
-            map=lookup_b, lname=binlabel, delimchar='-', ljust=False)
+            bmap=lookup_b, lname=binlabel, delimchar='-', ljust=False)
 get_braille("braille")
 # messin
 messin_args="library\ncards\nr\n4\ntards"
-get_braille("braille", messin_args, map=lookup_p, lname=poundlabel)
-get_braille("braille", map=lookup_b, lname=binlabel)
+get_braille("braille", messin_args, bmap=lookup_p, lname=poundlabel)
+get_braille("braille", bmap=lookup_b, lname=binlabel)
 get_braille("j is nonsense", messin_args)
-get_braille("j is nonsense", map=lookup_p, lname=poundlabel, ljust=False)
-get_braille("j is nonsense", map=lookup_b, lname=binlabel)
+get_braille("j is nonsense", bmap=lookup_p, lname=poundlabel, ljust=False)
+get_braille("j is nonsense", bmap=lookup_b, lname=binlabel)
