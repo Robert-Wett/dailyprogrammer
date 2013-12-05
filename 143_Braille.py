@@ -32,6 +32,10 @@
 # Sample Output:
 # helloworld
 
+import sys
+import re
+
+
 f = open("files/braille.txt")
 raw_data = [x.strip().split(" ") for x in f.readlines()]
 
@@ -41,10 +45,41 @@ braille_data = \
 "O...O.", "O.O.O.", "OO..O.", "OO.OO.", "O..OO.",
 "OOO.O.", "OOOOO.", "O.OOO.", ".OO.O.", ".OOOO.",
 "O...OO", "O.O.OO", ".OOO.O", "OO..OO", "OO.OOO",
-"O..OOO"]
+"O..OOO", "      "]
 
 letter_lookup = {k:v for (k, v) in zip(braille_data, "abcdefghijklmnopqrstuvwxyz")}
 togethered = "".join([letter_lookup["".join(x)] for x in list(zip(*raw_data))])
 print(togethered)
 
-# http://ideone.com/XkMkD1
+#--------------------------------------
+# Now we implement the reverse function
+#--------------------------------------
+
+lookup = {k:v for (k, v) in zip("abcdefghijklmnopqrstuvwxyz ", braille_data)}
+
+def pad(string, length=2, delim=' '):
+    """ Take a string and add a specified character every nth index """
+    return delim.join(string[i:i+length] for i in range(0,len(string),length))
+
+def get_braille(sentence):
+    """This takes a string and returns the English Braille
+       representation in three lines of text. It supports
+       [aA-zZ] and spaces"""
+    
+    r1, r2, r3 = [], [], []
+    for c in sentence.lower():
+       translated = re.findall('..', lookup[c])
+       r1+=translated[0]
+       r2+=translated[1]
+       r3+=translated[2]
+    print("Brailling '", sentence, "':", sep='')
+    print("{0:3}".format(pad("".join(r1))), 
+          "{0:3}".format(pad("".join(r2))), 
+          "{0:3}".format(pad("".join(r3))), 
+          sep="\n", end="\n\n")
+
+get_braille("Hello World")
+get_braille("Rob Wett")
+get_braille("braille")
+get_braille("j is nonsense")
+
