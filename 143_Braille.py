@@ -32,12 +32,12 @@
 # Sample Output:
 # helloworld
 
+import sys
 import re
 
 
 f = open("files/braille.txt")
 raw_data = [x.strip().split(" ") for x in f.readlines()]
-
 alphabet = "abcdefghijklmnopqrstuvwxyz "
 space = "      "
 
@@ -47,7 +47,7 @@ braille_data = \
 "O...O.", "O.O.O.", "OO..O.", "OO.OO.", "O..OO.",
 "OOO.O.", "OOOOO.", "O.OOO.", ".OO.O.", ".OOOO.",
 "O...OO", "O.O.OO", ".OOO.O", "OO..OO", "OO.OOO",
-"O..OOO", space]
+"O..OOO", "\t\t\t\t\t\t"]
 
 letter_lookup = {k:v for (k, v) in zip(braille_data, alphabet)}
 togethered = "".join([letter_lookup["".join(x)] for x in list(zip(*raw_data))])
@@ -91,6 +91,20 @@ def pad(string, length=2, delim=' '):
     """ Take a string and add a specified character every nth index """
     return delim+delim.join(string[i:i+length] for i in range(0,len(string),length))+delim
 
+def create_dict(raised, lowered):
+    alpha = "abcdefghijklmnopqrstuvwxyz "
+    sp = "      "
+    base = \
+    ["O.....", "O.O...", "OO....", "OO.O..", "O..O..", 
+    "OOO...", "OOOO..", "O.OO..", ".OO...", ".OOO..",
+    "O...O.", "O.O.O.", "OO..O.", "OO.OO.", "O..OO.",
+    "OOO.O.", "OOOOO.", "O.OOO.", ".OO.O.", ".OOOO.",
+    "O...OO", "O.O.OO", ".OOO.O", "OO..OO", "OO.OOO",
+    "O..OOO", sp]
+    newlist = [x.replace("O", raised).replace(".", lowered) for x in base]
+    return {k:v for (k, v) in zip(alpha, newlist)}
+
+
 def get_braille(sentence, *args, bmap=lookup, 
                 delimchar=' ', lname="'O' for raised and '.' for lowered", ljust=True):
 #    """This takes a string and returns the English Braille
@@ -133,12 +147,11 @@ get_braille("Rob Wett", "Using '-' as a delimiting character: ",
 get_braille("Rob Wett", "Using '-' as a delimiting character: ", 
             bmap=lookup_b, lname=binlabel, delimchar='-', ljust=False)
 get_braille("braille")
-# messin
 messin_args="library\ncards\nr\n4\ntards"
 get_braille("braille", messin_args, bmap=lookup_p, lname=poundlabel)
 get_braille("braille", bmap=lookup_b, lname=binlabel)
 get_braille("j is nonsense", messin_args)
 get_braille("j is nonsense", bmap=lookup_p, lname=poundlabel, ljust=False)
 get_braille("j is nonsense", bmap=lookup_b, lname=binlabel)
-
-# http://ideone.com/gQdsB1
+get_braille("jis nonsense", bmap=create_dict("X", "o"))
+get_braille("jis nonsense", bmap=create_dict(".", "O"))
