@@ -75,7 +75,7 @@ def trimlist(list, chars, i):
 
     `list` = List to apply the filtering/trimming against.
     `char` = List of characters to check for.
-    `idx`  = The index at which the `char` should occur. 
+    `i`  = The index at which the `char` should occur. 
     """
     filteredlist = [word for word in list if (len(word) >= i+1) and (word[i] in chars)] 
     if len(filteredlist) == 0:
