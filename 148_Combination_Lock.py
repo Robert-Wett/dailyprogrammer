@@ -51,11 +51,9 @@ def rotation_count(moves, idx=0, clockwise=True):
         if idx == 0:
             moves = rotation_count(moves+nums[idx], idx+1)
         elif clockwise:
-            clockwise, moves = not clockwise, \
-                rotation_count(moves+nums[idx], idx+1, not clockwise)
+           moves = rotation_count(moves+nums[idx], idx+1, not clockwise)
         else:
-            clockwise, moves = not clockwise, \
-                rotation_count(moves+max+nums[idx], idx+1, not clockwise)
+           moves = rotation_count(moves+max+nums[idx], idx+1, not clockwise)
     return moves
 
 print(rotation_count(moves))
