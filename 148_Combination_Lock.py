@@ -46,7 +46,7 @@
 max, *nums = "5 1 2 3".split(" ")
 max, moves, nums = int(max), int(max)*2, [int(x) for x in nums]
 
-def rotation_count(moves, idx, clockwise=True):
+def rotation_count(moves, idx=0, clockwise=True):
     if idx < len(nums): 
         if idx == 0:
             moves = rotation_count(moves+nums[idx], idx+1)
@@ -58,4 +58,4 @@ def rotation_count(moves, idx, clockwise=True):
                 rotation_count(moves+max+nums[idx], idx+1, not clockwise)
     return moves
 
-print(rotation_count(moves, 0))
+print(rotation_count(moves))
