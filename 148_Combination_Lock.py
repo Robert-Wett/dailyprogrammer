@@ -1,4 +1,4 @@
-# EasyIcon *Easy*: Combination Lock
+# Combination Lock:
 # Combination locks(http://en.wikipedia.org/wiki/Combination_lock) are mechanisms 
 # that are locked until a specific number combination is input. Either the input is a 
 # single dial that must rotate around in a special procedure, or have three disks set 
