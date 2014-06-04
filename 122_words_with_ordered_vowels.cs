@@ -8,7 +8,7 @@
 static void Main(string[] args)
 {
     // Create a 'whitelist' of chars to look out for, in this case, vowels.
-    var vowels = new List<char>() { 'a', 'e', 'i', 'o', 'u', 'y' };\
+    var vowels = new List<char>() { 'a', 'e', 'i', 'o', 'u', 'y' };
     // Initialize the list that we will dump matches to
     var wordsMatched = new List<string>();
 
@@ -18,6 +18,7 @@ static void Main(string[] args)
         while ((line = r.ReadLine()) != null)
         {
             // Grab all the characters in the line that are in the vowels set
+            // and set it to `stripWord`
             var stripWord = line.Where(w => vowels.Contains(w)).ToList();
             if (stripWord.SequenceEqual(vowels))
                 wordsMatched.Add(line);
