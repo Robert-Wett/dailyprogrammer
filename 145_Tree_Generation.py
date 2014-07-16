@@ -24,3 +24,6 @@ print(pad+" "+trunk*3+pad)
 #  *******************  
 # ********************* 
 #          ===         
+
+# Live Blockspring Example:
+# https://python.blockspring.com/blocks/115
