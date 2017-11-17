@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 /*
+PLAYGROUND LINK: https://play.golang.org/p/b2sDVwJ7lo
+
 Description
 You must remotely send a sequence of orders to a robot to get it out of a minefield.
 
