@@ -1,6 +1,6 @@
 package main
 // Challenge: https://www.reddit.com/r/dailyprogrammer/comments/7d4yoe/20171114_challenge_340_intermediate_walk_in_a
-// Play link: https://play.golang.org/p/eGTu7N2jnT
+// Play link: https://play.golang.org/p/4O2bkHxqy9
 import (
 	"crypto/rand"
 	"fmt"
@@ -191,7 +191,7 @@ func randomDirection(numChoices int) string {
 	choices := []string{"N", "E", "S", "W"}
 	var directions string
 	for i := 0; i < numChoices; i++ {
-		directions += choices[randomInt(3)]
+		directions += choices[randomInt(4)]
 	}
 	return "I" + directions + "-"
 }
