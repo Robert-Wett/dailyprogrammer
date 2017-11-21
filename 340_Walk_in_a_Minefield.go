@@ -1,12 +1,27 @@
 package main
 // Challenge: https://www.reddit.com/r/dailyprogrammer/comments/7d4yoe/20171114_challenge_340_intermediate_walk_in_a
-// Play link: https://play.golang.org/p/LvuxEixMFO
+// Play link: https://play.golang.org/p/eGTu7N2jnT
 import (
 	"crypto/rand"
 	"fmt"
 	"math/big"
 	"strings"
 	"time"
+)
+
+const (
+	WALL      = "+"
+	SPACE     = "0"
+	MINE      = "*"
+	ROBOT     = "M"
+	STEP      = "."
+	EXPLOSION = "#"
+	IGNITION  = "I"
+	POWEROFF  = "-"
+	NORTH     = "N"
+	EAST      = "E"
+	SOUTH     = "S"
+	WEST      = "W"
 )
 
 type point struct{ x, y int }
@@ -25,31 +40,44 @@ type game struct {
 func generate(width, height, mineNum int) string {
 
 	var gMap [][]string
-	topAndBottom := strings.Split(strings.Repeat("+", width), "")
+	topAndBottom := strings.Split(strings.Repeat(WALL, width), "")
+
+	// Add the top wall
 	gMap = append(gMap, topAndBottom)
+
+	// Fill in the rest of the map with valid move spots and surrounding walls
 	for i := 0; i < height; i++ {
-		gMap = append(gMap, strings.Split(strings.Repeat("0", width), ""))
+		gMap = append(gMap, strings.Split(WALL+strings.Repeat(SPACE, width-2)+WALL, ""))
 	}
-	// Make a pass to build the walls
-	for i := 0; i < height+1; i++ {
-		gMap[i][0] = "+"
-		gMap[i][width-1] = "+"
-	}
+
+	// Add the bottom wall
 	gMap = append(gMap, topAndBottom)
 
-	// Add an exit
+	// Add an exit to the right side of the map
 	exitRow := randomInt(height - 1)
-	gMap[exitRow+1][width-1] = "0"
+	gMap[exitRow+1][width-1] = SPACE
 
-	// Add a start
+	// Add a start to the left side of the map
 	startRow := randomInt(height - 1)
-	gMap[startRow+1][0] = "M"
+	gMap[startRow+1][0] = ROBOT
 
 	// Add mines
-	for m := mineNum; m > 0; m-- {
-		rowNum := randomInt(height-1) + 1
-		colNum := randomInt(width-1) + 1
-		gMap[rowNum][colNum] = "*"
+	for mineNum > 0 {
+		rowNum := randomInt(height-2) + 1
+		colNum := randomInt(width-2) + 1
+		// If the mine is blocking the start, try again
+		if rowNum == startRow && colNum == 1 {
+			continue
+		}
+		// If the mine is blocking the exit, try again
+		if rowNum == exitRow && colNum == width-2 {
+			continue
+		}
+		// Only add the mine if we haven't done so already at this spot
+		if gMap[rowNum][colNum] != MINE {
+			gMap[rowNum][colNum] = MINE
+			mineNum--
+		}
 	}
 
 	var s string
@@ -86,7 +114,7 @@ func newGameMap(mapVal string) *game {
 
 	for i, row := range strings.Split(mapVal, "\n") {
 		// Grab the starting point of the robot so we know where to start
-		if idx := strings.Index(row, "M"); idx != -1 {
+		if idx := strings.Index(row, ROBOT); idx != -1 {
 			g.pos = point{idx, i}
 		}
 		g.gmap = append(g.gmap, strings.Split(row, ""))
@@ -100,18 +128,18 @@ func newGameMap(mapVal string) *game {
 func (g *game) execute(dir string) {
 	for _, s := range strings.Split(dir, "") {
 		switch s {
-		case "I":
+		case IGNITION:
 			g.power = true
-		case "-":
+		case POWEROFF:
 			g.power = false
 			g.checkForWin()
-		case "N":
+		case NORTH:
 			g.makeMove(g.pos.x, g.pos.y-1)
-		case "S":
+		case SOUTH:
 			g.makeMove(g.pos.x, g.pos.y+1)
-		case "E":
+		case EAST:
 			g.makeMove(g.pos.x+1, g.pos.y)
-		case "W":
+		case WEST:
 			g.makeMove(g.pos.x-1, g.pos.y)
 		}
 
@@ -130,13 +158,13 @@ func (g *game) makeMove(x, y int) {
 	}
 
 	switch g.gmap[y][x] {
-	case "+":
+	case WALL:
 		return
-	case "M":
+	case STEP:
 		break
-	case "*":
+	case MINE:
 		g.dead = true
-	case "0":
+	case SPACE:
 		if g.won {
 			return
 		}
@@ -147,18 +175,31 @@ func (g *game) makeMove(x, y int) {
 		}
 	}
 
-	time.Sleep(time.Millisecond * 200)
+	time.Sleep(time.Millisecond * 100)
 	g.pos.x = x
 	g.pos.y = y
-	g.gmap[y][x] = "M"
+	if g.dead {
+		g.gmap[y][x] = EXPLOSION
+	} else {
+		g.gmap[y][x] = STEP
+	}
 	g.displayMap()
 
 }
 
+func randomDirection(numChoices int) string {
+	choices := []string{"N", "E", "S", "W"}
+	var directions string
+	for i := 0; i < numChoices; i++ {
+		directions += choices[randomInt(3)]
+	}
+	return "I" + directions + "-"
+}
 func main() {
-	newMap := generate(10, 5, 2)
+	newMap := generate(20, 7, 5)
 	g := newGameMap(newMap)
-	g.execute("IENENNNNEEEEEEEEEE-")
+	directions := randomDirection(50)
+	g.execute(directions)
 	g.displayMap()
 	if g.won {
 		fmt.Println("YOU MADE IT!")
@@ -167,4 +208,5 @@ func main() {
 	} else {
 		fmt.Println("You're stuck")
 	}
+	fmt.Println(fmt.Sprintf("Directions taken: %s", directions))
 }
