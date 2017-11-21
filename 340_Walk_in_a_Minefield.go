@@ -1,4 +1,5 @@
 package main
+
 // Challenge: https://www.reddit.com/r/dailyprogrammer/comments/7d4yoe/20171114_challenge_340_intermediate_walk_in_a
 // Play link: https://play.golang.org/p/4O2bkHxqy9
 import (
@@ -35,6 +36,22 @@ type game struct {
 	dead   bool
 	inExit bool
 	won    bool
+}
+
+func newGameMap(mapVal string) *game {
+	g := game{power: false, dead: false, inExit: false, won: false}
+
+	for i, row := range strings.Split(mapVal, "\n") {
+		// Grab the starting point of the robot so we know where to start
+		if idx := strings.Index(row, ROBOT); idx != -1 {
+			g.pos = point{idx, i}
+		}
+		g.gmap = append(g.gmap, strings.Split(row, ""))
+	}
+	g.height = len(g.gmap) - 1
+	g.width = len(g.gmap[0]) - 1
+
+	return &g
 }
 
 func generate(width, height, mineNum int) string {
@@ -88,36 +105,11 @@ func generate(width, height, mineNum int) string {
 	return s
 }
 
-func randomInt(max int) int {
-	nBig, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
-	if err != nil {
-		panic(err)
-	}
-	n := nBig.Int64()
-	return int(n)
-}
-
 func (g *game) displayMap() {
 	fmt.Printf("\x0c")
 	for _, r := range g.gmap {
 		fmt.Println(strings.Join(r, ""))
 	}
-}
-
-func newGameMap(mapVal string) *game {
-	g := game{power: false, dead: false, inExit: false, won: false}
-
-	for i, row := range strings.Split(mapVal, "\n") {
-		// Grab the starting point of the robot so we know where to start
-		if idx := strings.Index(row, ROBOT); idx != -1 {
-			g.pos = point{idx, i}
-		}
-		g.gmap = append(g.gmap, strings.Split(row, ""))
-	}
-	g.height = len(g.gmap) - 1
-	g.width = len(g.gmap[0]) - 1
-
-	return &g
 }
 
 func (g *game) execute(dir string) {
@@ -136,8 +128,9 @@ func (g *game) execute(dir string) {
 			g.makeMove(g.pos.x+1, g.pos.y)
 		case WEST:
 			g.makeMove(g.pos.x-1, g.pos.y)
+		default:
+			continue
 		}
-
 	}
 }
 
@@ -179,7 +172,6 @@ func (g *game) makeMove(x, y int) {
 		g.gmap[y][x] = STEP
 	}
 	g.displayMap()
-
 }
 
 func randomDirection(numChoices int) string {
@@ -190,12 +182,21 @@ func randomDirection(numChoices int) string {
 	}
 	return "I" + directions + "-"
 }
+
+func randomInt(max int) int {
+	nBig, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
+	if err != nil {
+		panic(err)
+	}
+	n := nBig.Int64()
+	return int(n)
+}
+
 func main() {
 	newMap := generate(20, 7, 5)
 	g := newGameMap(newMap)
 	directions := randomDirection(50)
 	g.execute(directions)
-	g.displayMap()
 	if g.won {
 		fmt.Println("YOU MADE IT!")
 	} else if g.dead {
