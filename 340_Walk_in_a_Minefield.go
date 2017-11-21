@@ -38,7 +38,6 @@ type game struct {
 }
 
 func generate(width, height, mineNum int) string {
-
 	var gMap [][]string
 	topAndBottom := strings.Split(strings.Repeat(WALL, width), "")
 
@@ -87,10 +86,6 @@ func generate(width, height, mineNum int) string {
 		s += strings.Join(v, "")
 	}
 	return s
-}
-
-func yesNo() bool {
-	return randomInt(2) == 1
 }
 
 func randomInt(max int) int {
