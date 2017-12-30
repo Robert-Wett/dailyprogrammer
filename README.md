@@ -9,6 +9,7 @@ Currently, there are solutions in 5 languages:
  * Ruby
  * Python
  * ActionScript 3
+ * Go
 
 Note: These solutions often try to be somewhat clever at the expense of readability, in the vein of Daily Programmer.
 
