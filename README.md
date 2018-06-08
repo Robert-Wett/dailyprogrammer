@@ -3,7 +3,7 @@ These are any of the challenges I've finished/attempted
 
 Most of them are finished, but there are some unfinished 'drafts' thrown up. These have been authored over the last 2 years as I've been programming, so some are more polished than others :)
 
-Currently, there are solutions in 5 languages:
+Currently, there are solutions in 6 languages:
  * C#
  * JavaScript
  * Ruby
