@@ -1,0 +1,15 @@
+{
+  "name": "fallout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: You expect too much.\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "terminal-kit": "^1.26.2"
+  }
+}
